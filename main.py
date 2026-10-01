@@ -1,6 +1,10 @@
 from config.connection import get_db_connection
 from services.analytic_service import department_employee_count,highest_paid_employee,department_average_salary,employee_summary_report
-from services.employee_service import get_all_employees_data, get_employee_data, add_employee_data, update_employee_data
+from services.employee_service import (get_all_employees_data, 
+                                       get_employee_data, 
+                                       add_employee_data, 
+                                       update_employee_data,
+                                       delete_employee_data)
 
 def view_employees():
     print("===================================")
@@ -87,28 +91,22 @@ def update_employee():
         print("       Update Successfully       ")
         print("=================================")
 
-# employee remove function
-def delete_employee():
+
+def remove_employee():
     print("===================================")
     print("           Remove Employee         ")
     print("===================================")
     em_id=int(input("Enter Employee ID to Remove: "))
-    connection=get_db_connection()
-    cursor=connection.cursor()
-    cursor.execute("""DELETE FROM employees
-                   WHERE employee_id=%s""", 
-                   (em_id,))
-    connection.commit()
-    if cursor.rowcount>0:
+    result=delete_employee_data(em_id)
+    if result=="employee_not_found":
         print("===================================")
-        print("   Employee Deleted Successfully   ")
+        print("        Employee Not Found.        ")
         print("===================================")
-    else:
-        print("===================================")
-        print("         Employee Not Found.       ")
-        print("===================================")
-    cursor.close()
-    connection.close()
+    elif result:
+        print("==========================================")
+        print("       Employee Deleted Successfully.     ")
+        print("==========================================")
+    
 
 while True:
     print("=================================")
@@ -133,7 +131,7 @@ while True:
     elif choice==2:search_employee()
     elif choice==3:add_employee()
     elif choice==4:update_employee()
-    elif choice==5:delete_employee()
+    elif choice==5:remove_employee()
     elif choice==6:
         while True:
             print("=================================")

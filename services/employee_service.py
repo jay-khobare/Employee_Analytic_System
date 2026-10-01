@@ -1,4 +1,9 @@
-from database.employee_repository import get_all_employees, get_employee_by_id, add_employee, get_department_by_id, update_employee
+from database.employee_repository import (get_all_employees, 
+                    get_employee_by_id, 
+                    add_employee, 
+                    get_department_by_id, 
+                    update_employee, 
+                    delete_employee)
 
 def get_all_employees_data():
     employees=get_all_employees()
@@ -33,3 +38,11 @@ def update_employee_data(employee_id,employee_name,employee_department,employee_
     update_rows=update_employee(employee_id,employee_name,employee_department,employee_salary,department_id)
     return update_rows
 
+def delete_employee_data(employee_id):
+    employee = get_employee_data(employee_id)
+    # print("Debug: ",employee)
+    if not employee:
+        return "employee_not_found"
+
+    delete_rows = delete_employee(employee_id)
+    return delete_rows

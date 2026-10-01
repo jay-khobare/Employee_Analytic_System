@@ -1,5 +1,6 @@
 from config.connection import get_db_connection
 
+# View All Employees Function
 def get_all_employees():
 
     connection=get_db_connection()
@@ -14,6 +15,7 @@ def get_all_employees():
 
     return employees
 
+# Employee Searching Function
 def get_employee_by_id(employee_id):
     
     connection=get_db_connection()
@@ -28,6 +30,7 @@ def get_employee_by_id(employee_id):
 
     return employee
 
+# Add Employee Function
 def add_employee(employee_id, employee_name, employee_department, employee_salary, department_id):
     connection=get_db_connection()
     cursor=connection.cursor()
@@ -45,6 +48,7 @@ def add_employee(employee_id, employee_name, employee_department, employee_salar
     connection.close()
     return row_affected
 
+# Department Validation Function
 def get_department_by_id(department_id):
     connection=get_db_connection()
     cursor=connection.cursor()
@@ -56,6 +60,7 @@ def get_department_by_id(department_id):
     connection.close()
     return department
 
+# Update Employee Function
 def update_employee(employee_id,employee_name,employee_department,employee_salary,department_id):
     connection=get_db_connection()
     cursor=connection.cursor()
@@ -71,4 +76,16 @@ def update_employee(employee_id,employee_name,employee_department,employee_salar
     cursor.close()
     connection.close()
     return updated_employee
+
+def delete_employee(employee_id):
+    connection=get_db_connection()
+    cursor=connection.cursor()
+    cursor.execute("""DELETE FROM employees
+                   WHERE employee_id=%s""", 
+                   (employee_id,))
+    connection.commit()
+    deleted_rows =cursor.rowcount
+    cursor.close()
+    connection.close()
+    return deleted_rows
 
