@@ -1,5 +1,8 @@
 from config.connection import get_db_connection
-from services.analytic_service import department_employee_count,highest_paid_employee,department_average_salary,employee_summary_report
+from services.analytic_service import (department_employee_count,
+                                       highest_paid_employee,
+                                       department_average_salary,
+                                       employee_summary_report)
 from services.employee_service import (get_all_employees_data, 
                                        get_employee_data, 
                                        add_employee_data, 
