@@ -87,7 +87,7 @@ def update_employee():
         print("       Update Successfully       ")
         print("=================================")
 
-
+# employee remove function
 def delete_employee():
     print("===================================")
     print("           Remove Employee         ")
